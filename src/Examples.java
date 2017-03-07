@@ -83,4 +83,47 @@ public class Examples {
 		model.printTTEntails(model.getStatementByLabel("Magical"));
 		model.printTTEntails(model.getStatementByLabel("Horned"));
 	}
+
+	public static void lieTruth(){
+		Model model = new Model();
+
+		model.variables.add(new Variable("Amy is truthful", false, false));
+		model.variables.add(new Variable("Bob is truthful", false, false));
+		model.variables.add(new Variable("Cal is truthful", false, false));
+
+		model.relations.add(new Relation(Relation.RelationType.CONJUNCTION, 
+				model.getStatementByLabel("Cal is truthful"),
+				model.getStatementByLabel("Amy is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.NEGATION, 
+				model.getStatementByLabel("Cal is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.NEGATION, 
+				model.getStatementByLabel("Amy is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.NEGATION, 
+				model.getStatementByLabel("Bob is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.DISJUNCTION, 
+				model.getStatementByLabel("Bob is truthful"),
+				model.getStatementByLabel("¬Amy is truthful"), false, false));
+		
+		model.relations.add(new Relation(Relation.RelationType.IMPLIES, 
+				model.getStatementByLabel("Amy is truthful"),
+				model.getStatementByLabel("Cal is truthful ^ Amy is truthful"), true, true));
+		model.relations.add(new Relation(Relation.RelationType.IMPLIES, 
+				model.getStatementByLabel("Bob is truthful"),
+				model.getStatementByLabel("¬Cal is truthful"), true, true));
+		model.relations.add(new Relation(Relation.RelationType.IMPLIES, 
+				model.getStatementByLabel("Cal is truthful"),
+				model.getStatementByLabel("Bob is truthful v ¬Amy is truthful"), true, true));
+
+		model.rebuildTT();
+		
+
+		//model.printTT(); //Uncomment to display entire truth table
+		
+		model.printTTEntails(model.getStatementByLabel("Amy is truthful"));
+		model.printTTEntails(model.getStatementByLabel("¬Amy is truthful"));
+		model.printTTEntails(model.getStatementByLabel("Bob is truthful"));
+		model.printTTEntails(model.getStatementByLabel("¬Bob is truthful"));
+		model.printTTEntails(model.getStatementByLabel("Cal is truthful"));
+		model.printTTEntails(model.getStatementByLabel("¬Cal is truthful"));
+	}
 }
