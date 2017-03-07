@@ -14,7 +14,7 @@ public class Examples {
 		
 		//model.printTT(); //Uncomment to display entire truth table
 		
-		model.printEntails(model.getStatementByLabel("Q"));
+		model.printTTEntails(model.getStatementByLabel("Q"));
 	}
 	
 	public static void WumpusWorldS(){
@@ -46,8 +46,8 @@ public class Examples {
 		
 		//model.printTT(); //Uncomment to display entire truth table
 		
-		model.printEntails(model.getStatementByLabel("P12"));
-		model.printEntails(model.getStatementByLabel("¬P12"));
+		model.printTTEntails(model.getStatementByLabel("P12"));
+		model.printTTEntails(model.getStatementByLabel("¬P12"));
 	}
 	
 	public static void hornClauses(){
@@ -79,8 +79,8 @@ public class Examples {
 
 		//model.printTT(); //Uncomment to display entire truth table
 		
-		model.printEntails(model.getStatementByLabel("Mythical"));
-		model.printEntails(model.getStatementByLabel("Magical"));
-		model.printEntails(model.getStatementByLabel("Horned"));
+		model.printTTEntails(model.getStatementByLabel("Mythical"));
+		model.printTTEntails(model.getStatementByLabel("Magical"));
+		model.printTTEntails(model.getStatementByLabel("Horned"));
 	}
 }

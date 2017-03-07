@@ -32,15 +32,26 @@ public class Model {
 		return null;
 	}
 	
+	public Statement getStatementByIndex(int index){
+		if(index < variables.size())
+			return variables.get(index);
+		else
+			return relations.get(index-variables.size());
+	}
+	
 	public void printTT(){
 		tt.print();
 	}
 	
-	public boolean entails(Statement s){
+	public boolean ttEntails(Statement s){
 		return tt.entails(s);
 	}
 	
-	public void printEntails(Statement s){
+	public void printTTEntails(Statement s){
 		tt.printEntails(s);
+	}
+	
+	public boolean dpllEntails(Statement s){
+		return DPLL.entails(this, s);
 	}
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Statement {
 	protected boolean value;
 	protected boolean known;
@@ -33,6 +35,8 @@ public abstract class Statement {
 			return true;
 		return false;
 	}
+	
+	public abstract Statement getSwitchedValue();
 	
 	public abstract String getLabel();
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Variable extends Statement{
 	private String label;
@@ -17,5 +18,9 @@ public class Variable extends Statement{
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public Statement getSwitchedValue(){
+		return new Variable(getLabel(), !getValue(), isKnown());
 	}
 }

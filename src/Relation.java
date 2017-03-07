@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Relation extends Statement{
 	public enum RelationType{
@@ -49,7 +50,7 @@ public class Relation extends Statement{
 	public boolean calcValue(boolean v1, boolean v2){
 		if(type == RelationType.NEGATION){
 			System.err.println("ERROR: An atomic relation was tested with two variables");
-			return false;
+			return !v1;
 		}else if(type == RelationType.CONJUNCTION)
 			return v1 && v2;
 		else if(type == RelationType.DISJUNCTION)
@@ -100,5 +101,9 @@ public class Relation extends Statement{
 		if(isAtomic())
 			return symbol + s1.getLabel();
 		return s1.getLabel() +  " " + symbol + " " + s2.getLabel();
+	}
+	
+	public Statement getSwitchedValue(){
+		return new Relation(getType(), getS1(), getS2(), !getValue(), isKnown());
 	}
 }
