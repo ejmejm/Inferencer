@@ -15,11 +15,20 @@ public class DPLL {
 		return entails;
 	}
 	
-	public static void printTree(State state){
+	public static void printEntails(Model model, Statement statement){
+		boolean result = entails(model, statement);
+		if(result)
+			System.out.println("DPLL: Statement, \"" + statement.getLabel() + "\" is entailed");
+		else
+			System.out.println("DPLL: Statement, \"" + statement.getLabel() + "\" is NOT entailed");
+	}
+	
+	public static void printTree(Model model){
+		State state = new State(model);
 		LinkedList<State> q = new LinkedList<State>();
 		q.addLast(state);
 		
-		int cnt = 1;
+		int cnt = 0;
 		
 		while(!q.isEmpty()){
 			State tmp = q.pop();
@@ -27,7 +36,7 @@ public class DPLL {
 				System.out.println("(" + cnt + ") " + tmp.statement.getLabel() + ": " + tmp.statement.getValue());
 			if(tmp.children != null && !tmp.children.isEmpty())
 				for(int i = 0; i < tmp.children.size(); i++)
-					q.addLast(tmp.children.get(i));
+					q.addFirst(tmp.children.get(i));
 			cnt++;
 		}
 	}

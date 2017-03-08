@@ -54,4 +54,12 @@ public class Model {
 	public boolean dpllEntails(Statement s){
 		return DPLL.entails(this, s);
 	}
+
+	public void printDPLLEntails(Statement s){
+		DPLL.printEntails(this, s);
+	}
+	
+	public void printDPLLTree(){
+		DPLL.printTree(this);
+	}
 }

@@ -1,7 +1,7 @@
 //¬
 
 public class Examples {
-	public static void modusPonens(){
+	public static void modusPonens(int x){
 		Model model = new Model();
 		
 		model.variables.add(new Variable("P", true));
@@ -12,12 +12,17 @@ public class Examples {
 		
 		model.rebuildTT();
 		
-		//model.printTT(); //Uncomment to display entire truth table
-		
-		model.printTTEntails(model.getStatementByLabel("Q"));
+		if(x == 1)
+			model.printTT();
+		else if(x == 2)
+			model.printDPLLTree();
+		else{
+			model.printTTEntails(model.getStatementByLabel("Q"));
+			model.printDPLLEntails(model.getStatementByLabel("Q"));
+		}
 	}
 	
-	public static void WumpusWorldS(){
+	public static void WumpusWorldS(int x){
 		Model model = new Model();
 		
 		model.variables.add(new Variable("P11", false, false));
@@ -43,14 +48,22 @@ public class Examples {
 				model.getStatementByLabel("P11 v P22 v P31"), true, true));
 		
 		model.rebuildTT();
-		
-		//model.printTT(); //Uncomment to display entire truth table
-		
-		model.printTTEntails(model.getStatementByLabel("P12"));
-		model.printTTEntails(model.getStatementByLabel("¬P12"));
+
+		if(x == 1)
+			model.printTT();
+		else if(x == 2)
+			model.printDPLLTree();
+		else{
+			model.printTTEntails(model.getStatementByLabel("P12"));
+			model.printDPLLEntails(model.getStatementByLabel("P12"));
+			model.printTTEntails(model.getStatementByLabel("P12"));
+			model.printDPLLEntails(model.getStatementByLabel("P12"));
+			model.printTTEntails(model.getStatementByLabel("¬P12"));
+			model.printDPLLEntails(model.getStatementByLabel("¬P12"));
+		}
 	}
 	
-	public static void hornClauses(){
+	public static void hornClauses(int x){
 		Model model = new Model();
 		
 		model.variables.add(new Variable("Mythical", false, false));
@@ -77,14 +90,21 @@ public class Examples {
 		model.rebuildTT();
 		
 
-		//model.printTT(); //Uncomment to display entire truth table
-		
-		model.printTTEntails(model.getStatementByLabel("Mythical"));
-		model.printTTEntails(model.getStatementByLabel("Magical"));
-		model.printTTEntails(model.getStatementByLabel("Horned"));
+		if(x == 1)
+			model.printTT();
+		else if(x == 2)
+			model.printDPLLTree();
+		else{
+			model.printTTEntails(model.getStatementByLabel("Mythical"));
+			model.printDPLLEntails(model.getStatementByLabel("Mythical"));
+			model.printTTEntails(model.getStatementByLabel("Magical"));
+			model.printDPLLEntails(model.getStatementByLabel("Magical"));
+			model.printTTEntails(model.getStatementByLabel("Horned"));
+			model.printDPLLEntails(model.getStatementByLabel("Horned"));
+		}
 	}
 
-	public static void lieTruth(){
+	public static void lieTruthA(int x){
 		Model model = new Model();
 
 		model.variables.add(new Variable("Amy is truthful", false, false));
@@ -117,13 +137,73 @@ public class Examples {
 		model.rebuildTT();
 		
 
-		//model.printTT(); //Uncomment to display entire truth table
+		if(x == 1)
+			model.printTT();
+		else if(x == 2)
+			model.printDPLLTree();
+		else{
+			model.printTTEntails(model.getStatementByLabel("Amy is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("Amy is truthful"));
+			model.printTTEntails(model.getStatementByLabel("¬Amy is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("¬Amy is truthful"));
+			model.printTTEntails(model.getStatementByLabel("Bob is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("Bob is truthful"));
+			model.printTTEntails(model.getStatementByLabel("¬Bob is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("¬Bob is truthful"));
+			model.printTTEntails(model.getStatementByLabel("Cal is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("Cal is truthful"));
+			model.printTTEntails(model.getStatementByLabel("¬Cal is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("¬Cal is truthful"));
+		}
+	}	
+	
+	public static void lieTruthB(int x){
+		Model model = new Model();
+
+		model.variables.add(new Variable("Amy is truthful", false, false));
+		model.variables.add(new Variable("Bob is truthful", false, false));
+		model.variables.add(new Variable("Cal is truthful", false, false));
+
+		model.relations.add(new Relation(Relation.RelationType.NEGATION, 
+				model.getStatementByLabel("Cal is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.NEGATION, 
+				model.getStatementByLabel("Amy is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.NEGATION, 
+				model.getStatementByLabel("Bob is truthful"), false, false));
+		model.relations.add(new Relation(Relation.RelationType.CONJUNCTION, 
+				model.getStatementByLabel("Amy is truthful"),
+				model.getStatementByLabel("Cal is truthful"), false, false));
 		
-		model.printTTEntails(model.getStatementByLabel("Amy is truthful"));
-		model.printTTEntails(model.getStatementByLabel("¬Amy is truthful"));
-		model.printTTEntails(model.getStatementByLabel("Bob is truthful"));
-		model.printTTEntails(model.getStatementByLabel("¬Bob is truthful"));
-		model.printTTEntails(model.getStatementByLabel("Cal is truthful"));
-		model.printTTEntails(model.getStatementByLabel("¬Cal is truthful"));
+		model.relations.add(new Relation(Relation.RelationType.IMPLIES, 
+				model.getStatementByLabel("Amy is truthful"),
+				model.getStatementByLabel("¬Cal is truthful"), true, true));
+		model.relations.add(new Relation(Relation.RelationType.IMPLIES, 
+				model.getStatementByLabel("Bob is truthful"),
+				model.getStatementByLabel("Amy is truthful ^ Cal is truthful"), true, true));
+		model.relations.add(new Relation(Relation.RelationType.IMPLIES, 
+				model.getStatementByLabel("Cal is truthful"),
+				model.getStatementByLabel("Amy is truthful ^ Cal is truthful"), true, true));
+
+		model.rebuildTT();
+		
+
+		if(x == 1)
+			model.printTT();
+		else if(x == 2)
+			model.printDPLLTree();
+		else{
+			model.printTTEntails(model.getStatementByLabel("Amy is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("Amy is truthful"));
+			model.printTTEntails(model.getStatementByLabel("¬Amy is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("¬Amy is truthful"));
+			model.printTTEntails(model.getStatementByLabel("Bob is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("Bob is truthful"));
+			model.printTTEntails(model.getStatementByLabel("¬Bob is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("¬Bob is truthful"));
+			model.printTTEntails(model.getStatementByLabel("Cal is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("Cal is truthful"));
+			model.printTTEntails(model.getStatementByLabel("¬Cal is truthful"));
+			model.printDPLLEntails(model.getStatementByLabel("¬Cal is truthful"));
+		}
 	}
 }
